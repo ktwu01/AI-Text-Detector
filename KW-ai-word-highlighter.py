@@ -257,7 +257,11 @@ class AIWordHighlighter:
         # Replace matches with highlighted versions
         for item_type, item_text, start, end, frequency, category, source in found_items:
             original_text = text[start:end]
-            highlighted = f"**{original_text}**"  # Bold for Markdown
+            # highlighted = f"**{original_text}**"  # Bold for Markdown
+            # highlighted = f"<span style='color:red;font-weight:bold;'>{original_text}</span>"  # Red bold for HTML
+            # And then make sure to use st.markdown(highlighted_text, unsafe_allow_html=True) when displaying the text in Streamlit.
+            highlighted = f"**<span style='color:red;'>{original_text}</span>**"  # Red bold for Streamlit Markdown
+
             highlighted_text = highlighted_text[:start] + highlighted + highlighted_text[end:]
         
         return highlighted_text, found_items
@@ -346,7 +350,9 @@ def create_streamlit_app():
                 
                 # Display results
                 st.subheader("Highlighted Text")
-                st.markdown(highlighted_text)
+                # st.markdown(highlighted_text)
+                st.markdown(highlighted_text, unsafe_allow_html=True)
+
                 
                 st.subheader("Analysis Results")
                 col1, col2, col3, col4 = st.columns(4)
