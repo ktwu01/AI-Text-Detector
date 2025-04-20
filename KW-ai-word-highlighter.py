@@ -8,12 +8,21 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 class AIWordHighlighter:
-    def __init__(self, db_path=":memory:"):
-        """Initialize with database path (default is in-memory database)"""
+    def __init__(self, db_path="ai_words.db"):
+        """Initialize with database path (default is file in current directory)"""
+        self.db_path = db_path
         self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
         self.initialize_database()
-        self.load_default_words()
+        
+        # Only load default words if the database is empty
+        self.cursor.execute('SELECT COUNT(*) FROM ai_words')
+        word_count = self.cursor.fetchone()[0]
+        self.cursor.execute('SELECT COUNT(*) FROM ai_phrases')
+        phrase_count = self.cursor.fetchone()[0]
+        
+        if word_count == 0 and phrase_count == 0:
+            self.load_default_words()
 
     def initialize_database(self):
         """Create the necessary tables if they don't exist"""
@@ -260,7 +269,7 @@ class AIWordHighlighter:
             # highlighted = f"**{original_text}**"  # Bold for Markdown
             # highlighted = f"<span style='color:red;font-weight:bold;'>{original_text}</span>"  # Red bold for HTML
             # And then make sure to use st.markdown(highlighted_text, unsafe_allow_html=True) when displaying the text in Streamlit.
-            highlighted = f"**<span style='color:red;'>{original_text}</span>**"  # Red bold for Streamlit Markdown
+            highlighted = f"**<span style='color:red;font-weight:bold;'>{original_text}</span>**"  # Red bold for Streamlit Markdown
 
             highlighted_text = highlighted_text[:start] + highlighted + highlighted_text[end:]
         
