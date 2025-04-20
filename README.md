@@ -10,6 +10,19 @@ Release date: Apr 20, 2025
 
 The AI Word and Phrase Highlighter is designed to detect common words and phrases frequently used in AI-generated content.
 
+为啥要做：，优势
+
+免费开源。
+
+本地部署，数据不上传，隐私保护。
+
+可以根据需要自定义AI词库。
+
+某种意义上也可以作为违禁词词库查询。。
+
+捐赠选项，捐赠支持作者。
+
+
 ## How It Works
 
 The tools work by scanning text for words and phrases commonly used by AI models like ChatGPT, Claude, and others. These words and phrases are ranked based on their frequency in AI-generated documents compared to human-written documents. The data is drawn from research by various detection tools like ZeroGPT and GPTZero.
