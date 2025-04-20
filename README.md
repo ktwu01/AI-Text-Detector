@@ -10,53 +10,37 @@ Release date: Apr 20, 2025
 
 The AI Word and Phrase Highlighter is designed to detect common words and phrases frequently used in AI-generated content.
 
-### How it works
+## How It Works
 
-1. The tool maintains a database of words and phrases commonly used by AI systems like ChatGPT, Claude, and others.
-2. When you input text, it scans for these markers and highlights them.
-3. It also provides statistics on the frequency of these markers in your text.
+The tools work by scanning text for words and phrases commonly used by AI models like ChatGPT, Claude, and others. These words and phrases are ranked based on their frequency in AI-generated documents compared to human-written documents. The data is drawn from research by various detection tools like ZeroGPT and GPTZero.
 
-### Use cases
+When analyzing text, the tools identify common AI markers like:
+- Overused transition phrases ("Furthermore", "On the other hand")
+- Formal academic constructions ("It's important to note", "In conclusion")
+- Verbose expressions ("When it comes to", "In the realm of")
+- Distinctive vocabulary ("delve", "plethora", "harness", "tapestry")
 
-- Writers can use this to reduce AI-like patterns in their writing
-- Content reviewers can quickly identify potential AI-generated content
-- Students and educators can ensure original work
-- SEO specialists can improve content to avoid AI detection penalties
+## Using the Tools
 
-### Sources
+You can use these tools in several ways:
 
-The default database includes words and phrases identified by various AI detection tools including:
+1. **For Content Creation**: Identify and replace AI-like patterns in your writing
+2. **For SEO**: Optimize content to reduce AI detection probability
+3. **For Education**: Compare AI vs. human writing patterns
+4. **For Research**: Analyze large text corpora for AI indicators
 
-- ZeroGPT
-- GPTZero
-- Originality.ai
-- And various research studies on AI-generated text patterns
+The HTML reports provide color-coded highlighting of AI indicators and suggest alternative words and phrases to make text appear more human-written.
 
-You can extend the database with your own observations or from other sources.
+## Installation & Setup
 
-# AI Text Highlighter
+To use these tools:
 
-A collection of tools for detecting and highlighting common AI-generated words and phrases in text. This tool helps identify content patterns often used by AI models like ChatGPT, Claude, and others.
-
-## Features
-
-- Highlight common AI words and phrases in text
-- Analyze the percentage of AI markers in content
-- Visualize results with charts and graphs
-- Compare AI-generated vs. human-written text
-- Export and import word/phrase lists
-
-## Components
-
-- **AI Word Highlighter**: A Streamlit application for interactive analysis
-- **Simple AI Word Highlighter**: A lightweight Python class for integration into any project
-- **SQL-Based AI Word Manager**: A database tool for managing AI word collections
-- **AI SEO Analyzer**: A comprehensive command-line analyzer with reporting capabilities
-
-## Installation
-
-The code is not publicly available in this repository, but requires the following dependencies:
-
-```bash
-pip install pandas matplotlib seaborn streamlit
-```
+1. Save each artifact file to your project directory
+2. Install required dependencies:
+   ```
+   pip install pandas matplotlib seaborn streamlit sqlite3
+   ```
+3. Run the tools according to your needs:
+   - For the Streamlit app: `streamlit run KW-ai_word_highlighter.py`
+   - For command-line analysis: `python ai_seo_analyzer.py --file your_text.txt`
+   - For Python integration: Import SimpleAIWordHighlighter in your code
