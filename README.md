@@ -33,3 +33,30 @@ The default database includes words and phrases identified by various AI detecti
 - And various research studies on AI-generated text patterns
 
 You can extend the database with your own observations or from other sources.
+
+# AI Text Highlighter
+
+A collection of tools for detecting and highlighting common AI-generated words and phrases in text. This tool helps identify content patterns often used by AI models like ChatGPT, Claude, and others.
+
+## Features
+
+- Highlight common AI words and phrases in text
+- Analyze the percentage of AI markers in content
+- Visualize results with charts and graphs
+- Compare AI-generated vs. human-written text
+- Export and import word/phrase lists
+
+## Components
+
+- **AI Word Highlighter**: A Streamlit application for interactive analysis
+- **Simple AI Word Highlighter**: A lightweight Python class for integration into any project
+- **SQL-Based AI Word Manager**: A database tool for managing AI word collections
+- **AI SEO Analyzer**: A comprehensive command-line analyzer with reporting capabilities
+
+## Installation
+
+The code is not publicly available in this repository, but requires the following dependencies:
+
+```bash
+pip install pandas matplotlib seaborn streamlit
+```
