@@ -1,8 +1,11 @@
 # AI-Text-Highlighter
 ---
 Author: Koutian Wu
+
 Github, LinkedIn: ktwu01
+
 Release date: Apr 20, 2025
+
 ---
 
 The AI Word and Phrase Highlighter is designed to detect common words and phrases frequently used in AI-generated content.
