@@ -41,6 +41,14 @@ To use these tools:
    pip install pandas matplotlib seaborn streamlit sqlite3
    ```
 3. Run the tools according to your needs:
-   - For the Streamlit app: `streamlit run KW-ai_word_highlighter.py`
-   - For command-line analysis: `python ai_seo_analyzer.py --file your_text.txt`
+   - For the Streamlit app: 
+   ```
+   streamlit run KW-ai_word_highlighter.py
+   ```
+
+   - For command-line analysis: 
+   ```
+   python ai_seo_analyzer.py --file your_text.txt
+   ```
+   
    - For Python integration: Import SimpleAIWordHighlighter in your code
