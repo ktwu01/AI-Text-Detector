@@ -3,7 +3,22 @@ https://claude.ai/chat/00a655a6-418f-4727-a992-a5e9eea5ad22
 
 # Format word list, Ask:
 https://claude.ai/chat/718cc735-989e-4700-a30a-def81ce1592e
+prompt: you list out all AI like words and phrase, split by 换行符。。。。
 
+output format like:
+```
+
+http://gptzero.me/ai-vocabulary
+
+
+```
+
+input = 
+```
+```
+
+
+# Word list Sources:
 http://gptzero.me/ai-vocabulary
 https://www.reddit.com/r/SEO/comments/1bh5clu/most_common_ai_words_and_phrases/
 https://isgpt.org/blog/ai-vocabulary-top-50
