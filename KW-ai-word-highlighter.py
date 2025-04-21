@@ -269,8 +269,7 @@ class AIWordHighlighter:
             # highlighted = f"**{original_text}**"  # Bold for Markdown
             # highlighted = f"<span style='color:red;font-weight:bold;'>{original_text}</span>"  # Red bold for HTML
             # And then make sure to use st.markdown(highlighted_text, unsafe_allow_html=True) when displaying the text in Streamlit.
-            highlighted = f"**<span style='color:red;font-weight:bold;'>{original_text}</span>**"  # Red bold for Streamlit Markdown
-
+            highlighted = f"<span style='color:red;font-weight:bold;'>{original_text}</span>"  # Red bold for Streamlit Markdown
             highlighted_text = highlighted_text[:start] + highlighted + highlighted_text[end:]
         
         return highlighted_text, found_items
