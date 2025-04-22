@@ -7,6 +7,8 @@ from collections import Counter
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
+from load_default_word_bank import load_default_words, load_default_phrases
+
 
 class AIWordHighlighter:
     def __init__(self, db_path="ai_words.db"):
