@@ -55,7 +55,6 @@ class AIWordHighlighter:
 
     def load_default_words(self):
         default_words, default_phrases = get_default_word_bank()
-    
         # Clear existing data
         self.cursor.execute('DELETE FROM ai_words')
         self.cursor.execute('DELETE FROM ai_phrases')
@@ -73,7 +72,6 @@ class AIWordHighlighter:
         )
         
         self.conn.commit()
-
 
     def add_word(self, word, frequency=1, category="general", source="user"):
         """Add a new AI word to the database"""
