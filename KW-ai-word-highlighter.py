@@ -7,7 +7,7 @@ from collections import Counter
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
-from load_default_word_bank import load_default_words
+from get_default_word_bank import get_default_word_bank
 
 class AIWordHighlighter:
     def __init__(self, db_path="ai_words.db"):
@@ -52,6 +52,28 @@ class AIWordHighlighter:
         self.cursor.execute('CREATE INDEX IF NOT EXISTS idx_word ON ai_words(word)')
         self.cursor.execute('CREATE INDEX IF NOT EXISTS idx_phrase ON ai_phrases(phrase)')
         self.conn.commit()
+
+    def load_default_words(self):
+        default_words, default_phrases = get_default_word_bank()
+    
+        # Clear existing data
+        self.cursor.execute('DELETE FROM ai_words')
+        self.cursor.execute('DELETE FROM ai_phrases')
+        
+        # Insert words
+        self.cursor.executemany(
+            'INSERT INTO ai_words (word, frequency, category, source) VALUES (?, ?, ?, ?)',
+            default_words
+        )
+        
+        # Insert phrases
+        self.cursor.executemany(
+            'INSERT INTO ai_phrases (phrase, frequency, category, source) VALUES (?, ?, ?, ?)',
+            default_phrases
+        )
+        
+        self.conn.commit()
+
 
     def add_word(self, word, frequency=1, category="general", source="user"):
         """Add a new AI word to the database"""
