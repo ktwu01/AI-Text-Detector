@@ -1,4 +1,5 @@
 # streamlit run xxxx
+# import sys
 import re
 import sqlite3
 import pandas as pd
@@ -853,7 +854,7 @@ def create_streamlit_app():
                 col1.metric("Total Words", results["total_words"])
                 col2.metric("Unique Words", results["unique_words"])
                 col3.metric("AI Markers Found", results["ai_markers"])
-                col4.metric("AI Word %", f"{results['ai_word_percentage']:.2f}%")
+                # col4.metric("AI Word %", f"{results['ai_word_percentage']:.2f}%")
                 
                 # Display top detected words and phrases
                 if results["word_counts"]:
@@ -1019,25 +1020,18 @@ def create_streamlit_app():
         You can extend the database with your own observations or from other sources.
         """)
 
+    # Running directly with python, show instructions
+    print("\n" + "="*70)
+    print("STREAMLIT APP LAUNCH INSTRUCTIONS")
+    print("="*70)
+    print("\nThis is a Streamlit app and should be run using the Streamlit command:")
+    print(f"\n    streamlit run {__file__}")
+    print("\nRunning the script directly with Python won't work correctly.")
+    print("="*70 + "\n")
+
     # Close the database connection when done
     highlighter.close()
 
-# # Run the Streamlit app if this script is run directly
-# if __name__ == "__main__":
-#     create_streamlit_app()
 # Run the Streamlit app if this script is run directly
 if __name__ == "__main__":
-    import sys
-    import os
-    
-    # Get the full path of the current script
-    script_path = os.path.abspath(__file__)
-    
-    # Check if being run directly or with streamlit
-    if 'streamlit' not in sys.argv[0].lower():
-        print(f"Launching Streamlit application...\n")
-        # Use os.system to run the streamlit command
-        os.system(f"streamlit run {script_path}")
-    else:
-        # If already running with streamlit, just create the app
-        create_streamlit_app()
+    create_streamlit_app()
