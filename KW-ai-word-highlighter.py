@@ -1,5 +1,6 @@
 # streamlit run xxxx
 # import sys
+import os
 import re
 import sqlite3
 import pandas as pd
@@ -178,9 +179,9 @@ class AIWordHighlighter:
         for item_type, item_text, start, end, frequency, category, source in found_items:
             original_text = text[start:end]
             # highlighted = f"**{original_text}**"  # Bold for Markdown
-            # highlighted = f"<span style='color:red;font-weight:bold;'>{original_text}</span>"  # Red bold for HTML
+            highlighted = f"<span style='color:red;font-weight:bold;'>{original_text}</span>"  # Red bold for HTML
             # And then make sure to use st.markdown(highlighted_text, unsafe_allow_html=True) when displaying the text in Streamlit.
-            highlighted = f"<span style='color:red'>{original_text}</span>"  # Red bold for Streamlit Markdown
+            # highlighted = f"<span style='color:red'>{original_text}</span>"  # Red bold for Streamlit Markdown
             highlighted_text = highlighted_text[:start] + highlighted + highlighted_text[end:]
         
         return highlighted_text, found_items
@@ -231,15 +232,18 @@ class AIWordHighlighter:
         
         # print(f"AI word count: {ai_word_count}")
         
-        ai_word_percentage = (ai_word_count / total_words) * 100 if total_words > 0 else 0
+        ai_word_percentage = (ai_markers / total_words) * 100 if total_words > 0 else 0
         # print(f"AI word percentage calculation: ({ai_word_count} / {total_words}) * 100 = {ai_word_percentage}%")
         
+        GPTZero_ai_word_percentage = ai_word_percentage * 10
+
         # Prepare results
         results = {
             "total_words": total_words,
             "unique_words": unique_words,
             "ai_markers": ai_markers,
             "ai_word_percentage": ai_word_percentage,
+            "GPTZero_ai_word_percentage": GPTZero_ai_word_percentage,
             "word_counts": word_counts,
             "phrase_counts": phrase_counts,
             "source_counts": source_counts,
@@ -267,6 +271,16 @@ class AIWordHighlighter:
         if self.conn:
             self.conn.close()
 
+def load_readme(file_path="README.md"):
+    try:
+        if os.path.exists(file_path):
+            with open(file_path, "r") as file:
+                content = file.read()
+            return content
+        else:
+            return "README.md file not found."
+    except Exception as e:
+        return f"Error loading README.md: {str(e)}"
 
 def create_streamlit_app():
     """Create a Streamlit app for the AI Word Highlighter"""
@@ -304,7 +318,10 @@ def create_streamlit_app():
                 col1.metric("Total Words", results["total_words"])
                 col2.metric("Unique Words", results["unique_words"])
                 col3.metric("AI Markers Found", results["ai_markers"])
-                # col4.metric("AI Word %", f"{results['ai_word_percentage']:.2f}%")
+                col4.metric("AI Word %", f"{results['ai_word_percentage']:.2f}%")
+
+                col6 = st.columns(1)
+                col6.metric("Estimated GPTZero AI Rate %", f"{results['GPTZero_ai_word_percentage']:.2f}%")
                 
                 # Display top detected words and phrases
                 if results["word_counts"]:
@@ -442,33 +459,35 @@ def create_streamlit_app():
     
     with tab3:
         st.header("About this Tool")
-        st.markdown("""
-        The AI Word and Phrase Highlighter is designed to detect common words and phrases frequently used in AI-generated content.
+        about_content = load_readme()
+        st.markdown(about_content)
+        # st.markdown("""
+        # The AI Word and Phrase Highlighter is designed to detect common words and phrases frequently used in AI-generated content.
         
-        ### How it works
+        # ### How it works
         
-        1. The tool maintains a database of words and phrases commonly used by AI systems like ChatGPT, Claude, and others.
-        2. When you input text, it scans for these markers and highlights them.
-        3. It also provides statistics on the frequency of these markers in your text.
+        # 1. The tool maintains a database of words and phrases commonly used by AI systems like ChatGPT, Claude, and others.
+        # 2. When you input text, it scans for these markers and highlights them.
+        # 3. It also provides statistics on the frequency of these markers in your text.
         
-        ### Use cases
+        # ### Use cases
         
-        - Writers can use this to reduce AI-like patterns in their writing
-        - Content reviewers can quickly identify potential AI-generated content
-        - Students and educators can ensure original work
-        - SEO specialists can improve content to avoid AI detection penalties
+        # - Writers can use this to reduce AI-like patterns in their writing
+        # - Content reviewers can quickly identify potential AI-generated content
+        # - Students and educators can ensure original work
+        # - SEO specialists can improve content to avoid AI detection penalties
         
-        ### Sources
+        # ### Sources
         
-        The default database includes words and phrases identified by various AI detection tools including:
+        # The default database includes words and phrases identified by various AI detection tools including:
         
-        - ZeroGPT
-        - GPTZero
-        - Originality.ai
-        - And various research studies on AI-generated text patterns
+        # - ZeroGPT
+        # - GPTZero
+        # - Originality.ai
+        # - And various research studies on AI-generated text patterns
         
-        You can extend the database with your own observations or from other sources.
-        """)
+        # You can extend the database with your own observations or from other sources.
+        # """)
 
     # Running directly with python, show instructions
     print("\n" + "="*70)
