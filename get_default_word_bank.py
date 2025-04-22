@@ -1,4 +1,4 @@
-def get_default_word_bank(self):
+def get_default_word_bank():
     """Load a default set of commonly used AI words and phrases"""
     # Common words from various sources
     default_words = [

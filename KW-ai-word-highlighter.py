@@ -54,7 +54,7 @@ class AIWordHighlighter:
         self.conn.commit()
 
     def load_default_words(self):
-        default_words, default_phrases = self.get_default_word_bank()
+        default_words, default_phrases = get_default_word_bank()
     
         # Clear existing data
         self.cursor.execute('DELETE FROM ai_words')
