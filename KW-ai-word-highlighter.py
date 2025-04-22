@@ -235,7 +235,7 @@ class AIWordHighlighter:
         ai_word_percentage = (ai_markers / total_words) * 100 if total_words > 0 else 0
         # print(f"AI word percentage calculation: ({ai_word_count} / {total_words}) * 100 = {ai_word_percentage}%")
         
-        GPTZero_ai_word_percentage = ai_word_percentage * 10
+        GPTZero_ai_word_percentage = ai_word_percentage * 14.73
 
         # Prepare results
         results = {
@@ -285,6 +285,7 @@ def load_readme(file_path="README.md"):
 def create_streamlit_app():
     """Create a Streamlit app for the AI Word Highlighter"""
     st.title("AI Word and Phrase Highlighter")
+    st.markdown("Provided free by Koutian Wu.")
     st.markdown("This tool helps identify common words and phrases used in AI-generated content.")
     
     # Initialize the highlighter
@@ -294,8 +295,8 @@ def create_streamlit_app():
     tab1, tab2, tab3 = st.tabs(["Highlight Text", "Manage Words & Phrases", "About"])
     
     with tab1:
-        st.header("Text Analysis")
-        
+        st.header("Text Analysis (>1k Text)")
+        st.markdown("<1k Text plz go to https://app.gptzero.me/ for better results")
         # Input text area
         input_text = st.text_area("Enter text to analyze", height=200)
         
@@ -320,9 +321,16 @@ def create_streamlit_app():
                 col3.metric("AI Markers Found", results["ai_markers"])
                 col4.metric("AI Word %", f"{results['ai_word_percentage']:.2f}%")
 
-                col6 = st.columns(1)
-                col6.metric("Estimated GPTZero AI Rate %", f"{results['GPTZero_ai_word_percentage']:.2f}%")
-                
+                # Display Final results
+                # col6 = st.columns(1)
+                # col6.metric("Estimated GPTZero AI Rate %", f"{results['GPTZero_ai_word_percentage']:.2f}%")
+
+                # # Fix: Access the first column in the list returned by st.columns(1)
+                # col6 = st.columns(1)[0]  # Get the first (and only) column from the list
+                # col6.metric("Estimated GPTZero AI Rate %", f"{results['GPTZero_ai_word_percentage']:.2f}%")
+
+                st.metric("Estimated GPTZero AI Rate %", f"{results['GPTZero_ai_word_percentage']:.2f}%")
+
                 # Display top detected words and phrases
                 if results["word_counts"]:
                     st.subheader("Top AI Words Detected")
