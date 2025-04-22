@@ -1022,6 +1022,22 @@ def create_streamlit_app():
     # Close the database connection when done
     highlighter.close()
 
+# # Run the Streamlit app if this script is run directly
+# if __name__ == "__main__":
+#     create_streamlit_app()
 # Run the Streamlit app if this script is run directly
 if __name__ == "__main__":
-    create_streamlit_app()
+    import sys
+    import os
+    
+    # Get the full path of the current script
+    script_path = os.path.abspath(__file__)
+    
+    # Check if being run directly or with streamlit
+    if 'streamlit' not in sys.argv[0].lower():
+        print(f"Launching Streamlit application...\n")
+        # Use os.system to run the streamlit command
+        os.system(f"streamlit run {script_path}")
+    else:
+        # If already running with streamlit, just create the app
+        create_streamlit_app()
