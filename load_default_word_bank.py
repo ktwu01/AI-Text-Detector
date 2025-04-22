@@ -548,7 +548,6 @@ def load_default_words(self):
         ("Indelible", 1, "general", "user"),
         ("My friend", 1, "general", "user"),
         ("In conclusion", 1, "general", "user"),
-        # ("I cannot browse the internet", 8, "limitation", "Various"),
     ]
     
     # Clear existing data
