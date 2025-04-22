@@ -685,8 +685,8 @@ class AIWordHighlighter:
         # Get all words and phrases
         words = self.get_all_words()
         phrases = self.get_all_phrases()
-        print(f"Words from database: {len(words)}, sample: {words[:5] if words else 'none'}")
-        print(f"Phrases from database: {len(phrases)}, sample: {phrases[:5] if phrases else 'none'}")
+        # print(f"Words from database: {len(words)}, sample: {words[:5] if words else 'none'}")
+        # print(f"Phrases from database: {len(phrases)}, sample: {phrases[:5] if phrases else 'none'}")
 
         # Create a copy of the text for highlighting
         highlighted_text = text
