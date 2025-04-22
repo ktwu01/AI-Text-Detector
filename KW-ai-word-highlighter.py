@@ -764,7 +764,7 @@ class AIWordHighlighter:
             category_counts[category] += 1
         
         # print(f"Final word_counts: {word_counts}")
-        print(f"Final phrase_counts: {phrase_counts}")
+        # print(f"Final phrase_counts: {phrase_counts}")
         # print(f"Final source_counts: {source_counts}")
         # print(f"Final category_counts: {category_counts}")
         
