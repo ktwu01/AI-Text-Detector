@@ -48,20 +48,25 @@ The HTML reports provide color-coded highlighting of AI indicators and suggest a
 
 To use these tools:
 
-1. Save each artifact file to your project directory
+1. Git Clone
+   ```
+   git clone https://github.com/ktwu01/AI-Text-Detector.git
+   ```
 2. Install required dependencies:
    ```
    pip install pandas matplotlib seaborn streamlit sqlite3
    ```
-3. Run the tools according to your needs:
-   - For the Streamlit app: 
+3. Run the tool
+ <!-- according to your needs:
+   - For the Streamlit app:  -->
    ```
    streamlit run KW-ai_word_highlighter.py
    ```
-
+   
+<!-- 
    - For command-line analysis: 
    ```
    python ai_seo_analyzer.py --file your_text.txt
    ```
    
-   - For Python integration: Import SimpleAIWordHighlighter in your code
+   - For Python integration: Import SimpleAIWordHighlighter in your code -->
