@@ -685,7 +685,9 @@ class AIWordHighlighter:
         # Get all words and phrases
         words = self.get_all_words()
         phrases = self.get_all_phrases()
-        
+        print(f"Words from database: {len(words)}, sample: {words[:5] if words else 'none'}")
+        print(f"Phrases from database: {len(phrases)}, sample: {phrases[:5] if phrases else 'none'}")
+
         # Create a copy of the text for highlighting
         highlighted_text = text
         found_items = []
@@ -698,6 +700,9 @@ class AIWordHighlighter:
             for match in matches:
                 found_items.append(("phrase", phrase, match.start(), match.end(), frequency, category, source))
         
+        # After the phrase detection loop:
+        # print(f"Detected {len(found_items)} phrases")
+
         # Then detect individual words
         for word, frequency, category, source in words:
             pattern = r'\b' + re.escape(word) + r'\b'
@@ -724,14 +729,15 @@ class AIWordHighlighter:
             # highlighted = f"**{original_text}**"  # Bold for Markdown
             # highlighted = f"<span style='color:red;font-weight:bold;'>{original_text}</span>"  # Red bold for HTML
             # And then make sure to use st.markdown(highlighted_text, unsafe_allow_html=True) when displaying the text in Streamlit.
-            highlighted = f"<span style='color:red;font-weight:bold;'>{original_text}</span>"  # Red bold for Streamlit Markdown
+            highlighted = f"<span style='color:red'>{original_text}</span>"  # Red bold for Streamlit Markdown
             highlighted_text = highlighted_text[:start] + highlighted + highlighted_text[end:]
         
         return highlighted_text, found_items
 
     def analyze_text(self, text):
         """Analyze the text and return statistics"""
-        _, found_items = self.highlight_text(text)
+        highlighted_text, found_items = self.highlight_text(text)
+        # print(f"Found items: {found_items}")
         
         # Count word frequencies
         word_counts = Counter()
@@ -739,20 +745,43 @@ class AIWordHighlighter:
         source_counts = Counter()
         category_counts = Counter()
         
-        for item_type, item_text, _, _, frequency, category, source in found_items:
+        # Track AI words count
+        ai_word_count = 0
+        
+        for item in found_items:
+            # print(f"Processing item: {item}")
+            item_type, item_text, _, _, frequency, category, source = item
+            
             if item_type == "word":
                 word_counts[item_text] += 1
+                ai_word_count += 1
+                # print(f"Added word: {item_text}, current word_counts: {word_counts}")
             else:
                 phrase_counts[item_text] += 1
+                # print(f"Added phrase: {item_text}, current phrase_counts: {phrase_counts}")
             
             source_counts[source] += 1
             category_counts[category] += 1
         
+        # print(f"Final word_counts: {word_counts}")
+        # print(f"Final phrase_counts: {phrase_counts}")
+        # print(f"Final source_counts: {source_counts}")
+        # print(f"Final category_counts: {category_counts}")
+        
         # Calculate statistics
         total_words = len(re.findall(r'\b\w+\b', text))
+        # print(f"Total words in text: {total_words}")
+        
         unique_words = len(set(re.findall(r'\b\w+\b', text.lower())))
+        # print(f"Unique words in text: {unique_words}")
+        
         ai_markers = len(found_items)
-        ai_word_percentage = (len([i for i in found_items if i[0] == "word"]) / total_words) * 100 if total_words > 0 else 0
+        # print(f"AI markers found: {ai_markers}")
+        
+        # print(f"AI word count: {ai_word_count}")
+        
+        ai_word_percentage = (ai_word_count / total_words) * 100 if total_words > 0 else 0
+        # print(f"AI word percentage calculation: ({ai_word_count} / {total_words}) * 100 = {ai_word_percentage}%")
         
         # Prepare results
         results = {
@@ -766,8 +795,10 @@ class AIWordHighlighter:
             "category_counts": category_counts
         }
         
+        # print(f"Final results dictionary: {results}")
+        
         return results
-
+    
     def export_words_to_csv(self, file_path):
         """Export words to a CSV file"""
         words = self.get_all_words()
