@@ -77,5 +77,4 @@ To use these tools:
 Example result:
 
 ![assets/result1.png](assets/result1.png)
-
 ![assets/result2.png](assets/result2.png)
