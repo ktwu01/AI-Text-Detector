@@ -70,3 +70,12 @@ To use these tools:
    ```
    
    - For Python integration: Import SimpleAIWordHighlighter in your code -->
+
+## Preview
+![assets/preview.png](assets/preview.png)
+
+Example result:
+
+![assets/result1.png](assets/result1.png)
+
+![assets/result2.png](assets/result2.png)
